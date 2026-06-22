@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #0c0c0e;
+  --bg-hover: rgba(255, 255, 255, 0.04);
+  --bg-card-subtle: rgba(255, 255, 255, 0.01);
+  --card-color: #121216;
+  --card-hover: #16161c;
+  --text-color: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(255, 255, 255, 0.10);
+
+  --primary: #3b82f6;
+  --primary-glow: rgba(59, 130, 246, 0.2);
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+.light-theme {
+  --bg-color: #f3f4f6;
+  --bg-hover: rgba(0, 0, 0, 0.03);
+  --bg-card-subtle: rgba(0, 0, 0, 0.015);
+  --card-color: #ffffff;
+  --card-hover: #fafafa;
+  --text-color: #111827;
+  --text-muted: #4b5563;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.12);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Light theme overrides */
+.light-theme .text-white:not(.btn-primary *, .btn-secondary *, .bg-primary *, .bg-success *, .bg-danger *, .bg-warning *, button, .text-white-force, select, option) {
+  color: var(--text-color) !important;
+}
+
+.light-theme .border-white\/5 {
+  border-color: var(--border-color) !important;
+}
+.light-theme .border-white\/10 {
+  border-color: var(--border-hover) !important;
+}
+.light-theme .bg-white\/5 {
+  background-color: var(--bg-hover) !important;
+}
+.light-theme .bg-white\/\[0\.02\] {
+  background-color: var(--bg-card-subtle) !important;
+}
+.light-theme .bg-white\/\[0\.01\] {
+  background-color: var(--bg-card-subtle) !important;
+}
+.light-theme .glass-card {
+  background-color: var(--card-color);
+  border-color: var(--border-color);
+}
+.light-theme .glass-card:hover {
+  background-color: var(--card-hover);
+  border-color: var(--border-hover);
+}
+.light-theme .prose-invert {
+  color: var(--text-color);
+}
+.light-theme select option {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-[#121216] border border-white/5 rounded-2xl transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply border-white/10 bg-[#16161c] shadow-[0_8px_30px_rgb(0,0,0,0.4)];
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-blue-600 text-white px-4 py-2.5 rounded-xl font-semibold 
+           flex items-center gap-2 transition-all duration-200 active:scale-[0.97]
+           shadow-[0_4px_12px_rgba(59,130,246,0.3)];
+  }
+
+  .btn-secondary {
+    @apply bg-white/5 hover:bg-white/10 text-white px-4 py-2.5 rounded-xl font-semibold 
+           flex items-center gap-2 transition-all duration-200 active:scale-[0.97]
+           border border-white/5;
+  }
+
+  .status-badge {
+    @apply px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+  }
+
+  /* Анимации появления */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Эффект мерцания для ИИ */
+  .ai-glow {
+    position: relative;
+  }
+  .ai-glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, #3b82f633, transparent, #3b82f633);
+    border-radius: inherit;
+    z-index: -1;
+    animation: rotateGlow 4s linear infinite;
+  }
+
+  @keyframes rotateGlow {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-4 px-4 py-3 rounded-xl text-muted-foreground transition-all duration-200 hover:bg-white/5 hover:text-white;
+    font-size: 1.05rem;
+  }
+
+  .sidebar-item-active {
+    @apply bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(59,130,246,0.1)];
+  }
+
+  .sidebar-item-active span {
+    @apply font-semibold;
+  }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
