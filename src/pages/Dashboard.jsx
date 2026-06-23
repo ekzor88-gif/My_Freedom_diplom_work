@@ -341,44 +341,20 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="glass-card p-6 h-[400px] flex flex-col border-primary/20 bg-primary/5">
+      <div className="grid grid-cols-1 gap-8">
+        <div className="glass-card p-6 h-[400px] flex flex-col border-primary/10 bg-primary/[0.01]">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <Sparkles className="text-primary" size={20} />
-              Индекс здоровья склада
-            </h3>
-            <span className="text-[10px] text-muted-foreground uppercase">Предиктивный тренд</span>
+            <div className="flex items-center gap-2">
+              <div className="p-2 rounded-lg bg-primary/20 text-primary">
+                <TrendingUp size={20} />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">История продаж</h3>
+                <p className="text-[10px] text-muted-foreground mt-0.5">Динамика отгрузок по месяцам</p>
+              </div>
+            </div>
+            <span className="text-[10px] text-muted-foreground uppercase">Общий тренд</span>
           </div>
-          <div className="flex-1">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={healthData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                <XAxis dataKey="date" stroke="#a3a3a3" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#a3a3a3" fontSize={12} tickLine={false} axisLine={false} domain={[0, 100]} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#121212', border: '1px solid #ffffff10', borderRadius: '8px' }}
-                  itemStyle={{ color: '#3b82f6' }}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="health_score" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3} 
-                  dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
-                  activeDot={{ r: 6, stroke: '#ffffff', strokeWidth: 2 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="mt-4 flex gap-4 text-[10px] text-muted-foreground">
-             <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-primary"></div> Текущее: {healthData[healthData.length-1]?.health_score || 0}%</div>
-             <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-danger"></div> Крит. аномалий: {healthData[healthData.length-1]?.critical_count || 0}</div>
-          </div>
-        </div>
-
-        <div className="glass-card p-6 h-[400px] flex flex-col">
-          <h3 className="text-lg font-semibold mb-6 uppercase tracking-wider text-sm opacity-70">История продаж</h3>
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={salesData}>
